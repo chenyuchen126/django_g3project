@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>AB104 GROUP3 親子景點推薦</title>
+      <!-- Bootstrap core CSS -->
+      <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+      <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script> -->
+      <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>      <link href="{{STATIC_URL}}g3site/css/bootstrap.min.css" rel="stylesheet"> -->
+      <!-- Bootstrap core CSS -->
+      <link href="{{STATIC_URL}}g3site/css/bootstrap.min.css" rel="stylesheet">
+      <link href="{{STATIC_URL}}g3site/css/carousel.css" rel="stylesheet">
+      <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+      <script>
+         $(function(){
+           // 建立 Geocoder() 物件
+         var marker2 = new google.maps.Marker();
+         
+           var gc = new google.maps.Geocoder();
+           mapdisplay = new google.maps.Map($('#maparea').get(0), {
+                     zoom: 15,
+                     center: {lat:25.0479, lng:121.5170}
+           });
+                 
+           // 設定查詢按鈕的事件處理函式
+           $('#query').click(function(){
+             // 取得使用者輸入的地址
+             var addr = $('#addr').val();
+             if(addr=='') return;
+             
+             // 用使用者輸入的地址查詢
+             gc.geocode({'address': addr}, function(result, status){
+               // 確認 OK
+               if(status == google.maps.GeocoderStatus.OK) {
+                 var latlng = result[0].geometry.location;
+                 // 將查詢結果設為地圖的中心
+                 mapdisplay.setCenter(latlng);
+         
+                 $('#lat').text(latlng.lat()); //顯示經度
+                 $('#lng').text(latlng.lng()); //顯示緯度
+         <!-- alert("hi"); -->
+         marker.setMap(null);
+         <!-- marker.remove(); -->
+         marker2 = new google.maps.Marker({ 
+                          		position: latlng, 
+                          		map: mapdisplay 
+                          	});
+               }
+             }); 
+         
+           });  // END of click()
+           
+           // 設定輸入欄位按鍵放開的事件處理函式
+           $('#addr').keyup(function(event){
+             if(event.keyCode == 13) // 若是按下/放開 Enter 鍵 
+               $('#query').click();
+           });  // END of keyup()
+         });
+      </script>
+   </head>
+   <!-- NAVBAR
+      ================================================== -->
+   <style>
+      @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+      body{
+      font-family: cwTeXYen, sans-serif;
+      font-size:20px;
+      }
+      .itemsTitle{
+      font-size:24px;
+      }
+   </style>
+   <body onload="doFirst()">
+      <div class="navbar-wrapper">
+         <div class="container">
+            <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+               <div class="container">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="../index/">親子趴趴走</a>
+                  </div>
+                  <div class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+                        <li class="active"><a href="../index/">首頁</a></li>
+                        <!-- <li><a href="../classification/">簡介</a></li> -->
+                        <li><a href="../classification/">依類別分類</a></li>
+                        <li><a href="../gul/">猜你喜歡</a></li>
+                        <li><a href="../guasb">熱門關鍵字</a></li>
+                        <li><button class="btn btn-lg btn-default" id="query" role="button" style="font-size:18px;"><input id="addr" value="" style="color:black;"> &nbsp;搜尋位置 &raquo;</button></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <!-- Carousel
+         ================================================== -->
+      <div id="mainCarousel">
+         <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+               <!-- <li data-target="#myCarousel" data-slide-to="0" class="active"></li> -->
+               <!-- <li data-target="#myCarousel" data-slide-to="1"></li> -->
+               <!-- <li data-target="#myCarousel" data-slide-to="2"></li> -->
+            </ol>
+            <div class="carousel-inner">
+               <div class="item active">
+                  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCSEAmT30WiNIg2RJm8cqbfSngSvuTXvlg&callback=initMap"
+                     async defer></script>				  
+                  <!-- <script -->
+                  <!-- src="http://maps.googleapis.com/maps/api/js?key=AIzaSyDY0kkJiTPVd2U7aTOAwhc9ySH6oHxOIYM&sensor=false"></script> -->
+                  <!-- <script src="http://maps.google.com/maps/api/js"></script> -->
+                  <!-- <script src="{{STATIC_URL}}g3site/js/mapData.js?{% now "U"%}" ></script> -->
+                  <script>
+                     var marker;
+                                    var mapdisplay; 
+                     <!-- alert("aaa"); -->
+                                    <!-- function doFirst(){ -->
+                                    	<!-- navigator.geolocation.getCurrentPosition(succCallback); -->
+                                    <!-- } -->
+                                    function doFirst(arg){
+                                    	<!-- var lati = arg.coords.latitude; -->
+                                    	<!-- var longi = arg.coords.longitude; -->
+                                    
+                                    	//台北 101 
+                                    	//var lati = 25.034123;
+                                    	//var longi = 121.564504;
+                                    	
+                                    	//HOME 
+                     //25.0400306,121.5602452
+                                    	var lati = 25.0399182;
+                                    	var longi = 121.5569454;
+                                    
+                                    	var xy = new google.maps.LatLng(lati, longi);
+                                    	var maparea = document.getElementById('maparea');
+                                    	var option = {
+                                    		zoom: 14,
+                                    		center: xy,
+                                    		mapTypeId: google.maps.MapTypeId.ROADMAP
+                                    	};
+                                    	mapdisplay = new google.maps.Map(maparea, option);
+                                    	marker = new google.maps.Marker({ 
+                                    		position: xy, 
+                                    		map: mapdisplay,
+                       animation: google.maps.Animation.DROP
+                                    	});
+                                    	<!-- marker.setTitle('目前位置');  -->
+                                    }
+                     //親子餐廳
+                     //請照這樣的方式更改
+                     //var rest = ['starbucks,25.0430,121.5570', .............
+                     var rest = [{% for x in travel_1 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %}, '25.032339,121.548786'];
+                     //親子民宿
+                     var accomm = [{% for x in travel_2 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %}, '25.028451,121.568763'];
+                     //觀光工廠
+                     var fact=[{% for x in travel_3 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //農廠
+                     var farm=[{% for x in travel_4 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //公園
+                     var park=[{% for x in travel_5 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //飯店
+                     var hotel=[{% for x in travel_6 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //博物館
+                     var muse=[{% for x in travel_7 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //親子會館
+                     var kid=[{% for x in travel_8 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //文化園區
+                     var cul=[{% for x in travel_9 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //觀光景點
+                     var tour=[{% for x in travel_10 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //風景區
+                     var scenic=[{% for x in travel_11 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                     //露營區
+                     var camp=[{% for x in travel_12 %}'{{x.name}},{{x.lat}},{{x.longt}}',{% endfor %},','];
+                                    
+                     function showInfo(o){
+                                    	switch (o.id)
+                                    	{
+                     //親子餐廳
+                                    		case 'rest':
+                                    			getLocation(rest, '{{STATIC_URL}}g3site/images/rest32.png');
+                                    			break; 
+                     //親子民宿	
+                                    		case 'accomm':
+                                    			getLocation(accomm, '{{STATIC_URL}}g3site/images/accomm32.png');
+                                    			break ;
+                     //觀光工廠
+                                    		case 'fact':
+                                    			getLocation(fact, '{{STATIC_URL}}g3site/images/fact32.png');
+                                    			break; 
+                     //農場
+                                    		case 'farm':
+                                    			getLocation(farm, '{{STATIC_URL}}g3site/images/farm32.png');
+                                    			break ; 
+                     //公園
+                                    		case 'park':
+                                    			getLocation(park, '{{STATIC_URL}}g3site/images/park32.png');
+                                    			break ;
+                     //飯店
+                                    		case 'hotel':
+                                    			getLocation(hotel, '{{STATIC_URL}}g3site/images/hotel32.png');
+                                    			break; 
+                     //博物館
+                                    		case 'muse':
+                                    			getLocation(muse, '{{STATIC_URL}}g3site/images/muse32.png');
+                                    			break ;
+                     //親子會館		
+                                    		case 'kid':
+                                    			getLocation(kid, '{{STATIC_URL}}g3site/images/kid32.png');
+                                    			break ;
+                     //文化園區
+                                    		case 'cul':
+                                    			getLocation(cul, '{{STATIC_URL}}g3site/images/cul32.png');
+                                    			break ;
+                     //觀光景點
+                                    		case 'tour':
+                                    			getLocation(tour, '{{STATIC_URL}}g3site/images/tour32.png');
+                                    			break ;
+                     //風景區
+                                    		case 'scenic':
+                                    			getLocation(scenic, '{{STATIC_URL}}g3site/images/scenic32.png');
+                                    			break ;
+                     //露營區
+                                    		case 'camp':
+                                    			getLocation(camp, '{{STATIC_URL}}g3site/images/camp32.png');
+                                    			break ;
+                                    	}
+                                    }
+                                    var markers = new Array(); 
+                                    function getLocation(as,title,shopname){
+                                    	var i = 0;
+                                    	for (var k in markers){
+                                    		markers[k].setVisible(false);
+                                    	}
+                                    	for (var k in as){
+                                    		var lati = as[k].split(',')[1]; 
+                                    		var longi = as[k].split(',')[2]; 
+                                    		var shopname = as[k].split(',')[0];
+                     var xy = new google.maps.LatLng(lati, longi);
+                                    		var marker = new google.maps.Marker({ 
+                                    			position: xy, 
+                                    			map: mapdisplay,
+                                    			icon:title,
+                     title1:shopname,
+                     animation: google.maps.Animation.DROP
+                                    		});
+                                    		marker.setTitle(shopname); 
+                                    		markers[i]  = marker;i++ ;           
+                                    	}           
+                                    }		
+                                  <!-- google.maps.event.addDomListener(window, 'load', initialize);                  -->
+                                 
+                  </script>
+                  <div id="maparea" style="height:450px;"></div>
+                  <div class="container">
+                     <!-- <div class="carousel-caption"> -->
+                     <!-- <button class="btn btn-lg btn-default" id="query" role="button" style="font-size:2em"><input id="addr" value="" style="color:black;"> &nbsp;搜尋位置 &raquo;</button> -->
+                     <!-- </div> -->
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /.carousel -->
+      </div>
+      <div class="mainTitle">
+         <div class="container">
+            <h1>親子景點推薦</h1>
+            <p>
+               我們從二十二萬篇部落格文章分析出熱門的親子相關景點、餐廳與住宿.
+            </p>
+         </div>
+      </div>
+      <!-- Marketing messaging and featurettes
+         ================================================== -->
+      <!-- Wrap the rest of the page in another container to center all the content. -->
+      <div class="container marketing">
+         <!-- Three columns of text below the carousel -->
+         <div class="row">
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/rest64.png" alt="">
+               <!-- <h2>親子餐廳</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="rest" onclick="showInfo(this)">親子餐廳 &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/farm64.png" alt="">
+               <!-- <h2>農場</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#"  role="button" id="farm" onclick="showInfo(this)">農 &nbsp; &nbsp;場 &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/accomm64.png" alt="Lam Tikka">
+               <!-- <h3>民宿</h3> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="accomm" onclick="showInfo(this)">民 &nbsp; &nbsp;宿 &raquo;</a></p>
+            </div>
+            <!-- /.col-lg-4 -->
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/fact64.png" alt="Lam Tikka">
+               <!-- <h2>觀光工廠</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="fact" onclick="showInfo(this)">觀光工廠 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/park64.png" alt="Lam Tikka">
+               <!-- <h2>公園</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="park" onclick="showInfo(this)">公 &nbsp; &nbsp;園 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/hotel64.png" alt="Lam Tikka">
+               <!-- <h2>飯店</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="hotel" onclick="showInfo(this)">飯 &nbsp; &nbsp;店 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/muse64.png" alt="Lam Tikka">
+               <!-- <h2>博物館</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="muse" onclick="showInfo(this)"> &nbsp;博物館 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/kid64.png" alt="Lam Tikka">
+               <!-- <h2>親子館</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="kid" onclick="showInfo(this)"> &nbsp; 親子館 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/cul64.png" alt="Lam Tikka">
+               <!-- <h2>文化園區</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="cul" onclick="showInfo(this)">文化園區 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/tour64.png" alt="Lam Tikka">
+               <!-- <h2>觀光景點</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="tour" onclick="showInfo(this)">觀光景點 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/scenic64.png" alt="Lam Tikka">
+               <!-- <h2>風景區</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="scenic" onclick="showInfo(this)"> &nbsp;風景區 &raquo;</a></p>
+            </div>
+            <div class="col-lg-1">
+               <img class="img-rounded" src="{{STATIC_URL}}g3site/images/camp64.png" alt="Lam Tikka">
+               <!-- <h2>露營區</h2> -->
+               <p></p>
+               <p><a class="btn btn-default" href="#" role="button" id="camp" onclick="showInfo(this)"> &nbsp;露營區 &raquo;</a></p>
+            </div>
+         </div>
+         <!-- /.row -->
+      </div>
+      <div class="introSection">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <h1 class="cntr">我們從二十二萬篇部落格文章分析出熱門的親子相關景點、餐廳與住宿 <br>希望您會喜歡 </h1>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="container marketing">
+         <h2 class="itemsTitle">親子餐廳</h2>
+         <div id="myCarousel2" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner">
+               <div class="item active">
+                  <div class="row">
+                     {% for x in travel_rest%}
+                     <div class="col-lg-4">
+                        <img  src="{{STATIC_URL}}g3site/images/small/{{x.gid}}/1.jpg" alt="">
+                        <h4>{{x.name}}</h4>
+                        <p>地址 : {{x.address}}</p>
+                        <p>電話 : {{x.phone}}</p>
+                        <p>FB評分 : {{x.rating}}</p>
+                        <p><a class="btn btn-default" href="../about/{{x.gid}}" role="button">餐廳簡介 &raquo;</a></p>
+                     </div>
+                     {% endfor %}
+                  </div>
+               </div>
+               <div class="item">
+                  <div class="row">
+                     {% for x in travel_hotel%}
+                     <div class="col-lg-4">
+                        <img  src="{{STATIC_URL}}g3site/images/small/{{x.gid}}/1.jpg" alt="">
+                        <h4>{{x.name}}</h4>
+                        <p>地址 : {{x.address}}</p>
+                        <p>電話 : {{x.phone}}</p>
+                        <p>FB評分 : {{x.rating}}</p>
+                        <p><a class="btn btn-default" href="../about/{{x.gid}}" role="button">餐廳簡介 &raquo;</a></p>
+                     </div>
+                     {% endfor %}
+                  </div>
+               </div>
+            </div>
+            <a class="left carousel-control" href="#myCarousel2" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a>
+            <a class="right carousel-control" href="#myCarousel2" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
+         </div>
+      </div>
+	  
+	  
+	  
+      <!-- 這裡可放特賣會時間軸 -->
+      <div class="introSection">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+                  <h3>親子用品特賣時間軸</h3>
+                  <iframe src='https://cdn.knightlab.com/libs/timeline3/latest/embed/index.html?source=1-5F9idwH65Xg3pfvt6wxKPo0zFJj76OxZWxaw7Q3sVw&font=Default&lang=zh-cn&initial_zoom=2&height=650' width='100%' height='650' webkitallowfullscreen mozallowfullscreen allowfullscreen frameborder='0'></iframe>                  
+               </div>
+            </div>
+         </div>
+      </div>
+	  <!-- 下面這個有問題 -->
+      <!-- </div> -->
+      <!-- 這裡放輪播 -->
+      <div class="container marketing">
+         <div id="myCarousel4" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <div class="carousel-inner">
+               <div class="item active">
+                  <div class="row featurette">
+                     <div class="col-md-7">
+                        <h2 class="featurette-heading">大樹先生 <span class="text-muted">大樹先生的家遊戲區是開放給學齡前的小朋友.</span></h2>
+                        <p class="lead">大樹先生的家遊戲區是開放給學齡前的小朋友，放心吃飯還可以享受</p>
+						<p>這難得的親子時光，大樹先生的家絕對是最佳首選的地方！</p> 
+							<p>台北古亭店(大樹先生的家) </p>
+							<p>台北安和店(大樹站) </p>
+							<p>台中崇德店(大樹先生的家崇德店) </p>
+                     </div>
+                     <div class="col-md-5">
+                        <img src="{{STATIC_URL}}g3site/images/406116.jpg" alt="">
+                     </div>
+                  </div>
+               </div>
+               <div class="item">
+                  <div class="row featurette">
+                     <div class="col-md-5">
+                        <img src="{{STATIC_URL}}g3site/images/406114.jpg" alt="">
+                     </div>
+                     <div class="col-md-7">
+                        <h2 class="featurette-heading">卡里善之樹 <span class="text-muted">為愛撐傘~和美七彩雨傘巷超繽紛.</span></h2>
+                        <p class="lead">「彩虹屋Rainbow House」戶外空間除了屋前的「卡里善之樹」，另一處的「傘巷」更是讓許多人流連忘返，尤其是在陽光忽亮忽暗以及慢慢黃昏的變化之下，讓整個傘巷無時無刻都充滿了變化，彷彿像是有生命一般。</p>
+                     </div>
+                  </div>
+               </div>
+               <div class="item">
+                  <div class="row featurette">
+                     <div class="col-md-7">
+                        <h2 class="featurette-heading">自然捲北歐風格旅店 <span class="text-muted">以簡單的線條構成房子的外觀</span></h2>
+                        <p class="lead">以簡單的線條構成房子的外觀，融合了自然的元素，有設計感的傢俱，把家佈置成簡潔．溫暖．舒適，北歐色彩的房子。</p>
+                     </div>
+                     <div class="col-md-5">
+                        <img class="img-circle" src="{{STATIC_URL}}g3site/images/406115.jpg" alt="">
+                     </div>
+                  </div>
+               </div>
+            </div>
+         </div>
+         <!-- /.carousel -->	  
+      </div>
+      <!-- /.container -->
+      <!-- /END THE FEATURETTES -->
+      <!-- FOOTER -->
+      <footer>
+         <div class="container">
+            <p class="pull-right"><a href="#">回到首頁</a></p>
+            <p>&copy; 2017 AB104 GROUP3 親子相關景點推薦.</p>
+         </div>
+      </footer>
+      <!-- Bootstrap core JavaScript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <!-- 如果沒有網路請點開我 -->
+      <!-- <script src="{{STATIC_URL}}g3site/js/jquery-1.10.2.min.js"></script> -->
+      <script src="{{STATIC_URL}}g3site/js/bootstrap.min.js"></script>
+      <script src="{{STATIC_URL}}g3site/js/holder.js"></script>
+   </body>
+</html>

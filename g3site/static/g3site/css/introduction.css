@@ -1,0 +1,254 @@
+﻿* {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+@media screen and ( min-width: 1280px) {
+	.content {
+		margin: 2% 0 2% 0;
+	}
+	.main .container> * {
+		max-width: 100vw;
+	}
+}
+
+#header {
+	height: 80px;
+	padding: 35px;
+	text-transform: uppercase;
+	font-family: 'Lobster', cursive;
+	font-size: 4em;
+	color: #fff;
+	background: #3b5998;
+	position: static;
+	top: 0;
+}
+
+p {
+	margin: 0 auto;
+}
+
+html, body {
+	background: -webkit-linear-gradient(left, rgba(252, 231, 206, 1), rgba(183, 169, 152, 0.4));
+	margin: 0;
+}
+
+.container {
+	margin: 0 10% 5% 10%;
+	/* width:1230px; */
+}
+
+.content {
+	width: 100%;
+	margin-top: 2%;
+	height: 400px;
+	margin-bottom: 1%;
+	table-layout: fixed;
+	border: 1px solid transparent;
+}
+
+.content .content_left {
+	position: relative;
+	float: left;
+	width: 49%;
+	height: inherit;
+}
+
+.content .content_left .content_bottom {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	height: 25%;
+}
+
+.content .content_right {
+	float: left;
+	width: 49%;
+	font-family: cwTeXYen, sans-serif;
+	font-weight: bold;
+	height: inherit;
+}
+
+.content_right .rest_name {
+	font-size: 3em;
+}
+
+.content_right p {
+	padding: 3px;
+}
+
+.rest_score {
+	font-size: 2.5em;
+}
+
+.rest_type {
+	font-size: 2.5em;
+}
+
+.rest_add {
+	font-size: 2em;
+}
+
+.rest_phone {
+	font-size: 2em;
+}
+
+.rest_hours {
+	font-size: 2em;
+}
+
+.rest_about {
+	font-size: 1.5em;
+}
+
+img {
+	margin: 0;
+	height: 97%;
+	float: middle;
+}
+
+iframe {
+	width: 100%;
+}
+
+#textflow {
+	width: 100%;
+	height: 100px;
+	font-weight: 900;
+	border: 9px dotted #53777A;
+	margin: 2% 0 2% 0;
+}
+
+.carousel {
+	position: relative;
+	overflow: hidden;
+	width: 1250px;
+}
+
+.roll {
+	position: relative;
+	white-space: nowrap;
+	font-size: 0;
+	left: 0px;
+}
+
+.slides {
+	width: 300px;
+	height: 350px;
+	background-color: #FFF;
+	-webkit-box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.5);
+	-moz-box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.5);
+	box-shadow: 5px 5px 5px 1px rgba(0, 0, 0, 0.5);
+	text-align: center;
+	margin: 0 10px 15px 0;
+	display: inline-block;
+	font-size: 18px;
+}
+
+.slides img {
+	margin-top: 10px;
+	width: 280px;
+	height: 200px;
+}
+
+.slides p {
+	margin: 5px;
+	font-family: cwTeXYen, sans-serif;
+	font-weight: 200;
+	text-align: left;
+	white-space: normal;
+}
+
+.sections {
+	text-align: center;
+	/* 圓形按鈕的顏色 */
+	color: black;
+	font-size: 20px;
+}
+
+.sections i {
+	margin: 0 2px;
+	cursor: pointer;
+}
+
+.navigation {
+	position: absolute;
+	border: none;
+	padding: 0;
+	background-color: rgba(35, 35, 35, 0.8);
+	height: 34px;
+	width: 34px;
+	color: #FFF;
+	font-size: 20px;
+	text-align: center;
+	top: 176px;
+	z-index: 10;
+}
+
+.navigation:visited {
+	text-decoration: none;
+}
+
+.navigation-hover {
+	height: 50px;
+	width: 50px;
+	top: 168px;
+}
+
+
+/* .navigation:active { text-decoration: none; } */
+
+.navigation:focus {
+	outline: none;
+}
+
+
+/* .navigation:first-of-type { left: 0px; } */
+
+.navigation:last-of-type {
+	right: 10px;
+}
+
+@media screen and (max-width: 950px) {
+	.carousel {
+		position: relative;
+		overflow: hidden;
+		width: 950px;
+	}
+}
+
+@media screen and (max-width: 655px) {
+	.carousel {
+		position: relative;
+		overflow: hidden;
+		width: 310px;
+	}
+}
+
+
+/* Footer */
+
+#footer {
+	height: 40px;
+	width: 100%;
+	position: static;
+	bottom: 0;
+	font-family: 'Abel', sans-serif;
+	background: #3b5998;
+}
+
+#footer p {
+	margin: 0;
+	padding-top: 10px;
+	letter-spacing: 1px;
+	line-height: normal;
+	font-size: 18px;
+	text-transform: uppercase;
+	text-align: center;
+	color: #fff;
+}
+
+#footer a {
+	color: #fff;
+}

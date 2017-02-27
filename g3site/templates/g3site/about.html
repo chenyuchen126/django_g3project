@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <title>AB104 GROUP3 親子景點推薦</title>
+      <!-- Bootstrap core CSS -->
+      <link href="{{STATIC_URL}}g3site/css/bootstrap.min.css" rel="stylesheet">
+      <link href="{{STATIC_URL}}g3site/css/carousel.css" rel="stylesheet">
+      <link rel="stylesheet" href="{{STATIC_URL}}g3site/css/style.css">
+      <!-- <link rel="stylesheet" href="{{STATIC_URL}}g3site/css/darkbox.css"/> -->
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+      <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+      <!-- <script type="text/javascript" src="{{STATIC_URL}}g3site/js/jquery.textflow.min.js"></script> -->
+      <script src="https://code.jquery.com/jquery.min.js"></script>
+      <!-- <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script> -->
+      <!-- <script type = "text/javascript"> -->
+      <!-- $( function () { -->
+      <!-- $( '.map' ).noScrollLayer(); -->
+      <!-- }); -->
+      <!-- </script> -->
+   </head>
+   <script>
+      // 天氣描述
+      var weaText =  {drizzle:'毛毛雨',
+                      showers:'陣雨',
+                      snow:'雪',
+                      foggy:'有霧',
+                      windy:'微風',
+                      cold:'寒冷', 
+                      cloudy:'陰', 
+                      "mostly cloudy":'多雲時晴',
+                      "oartly cloudy":'晴時多雲', 
+                      "mostly sunny":'晴時多雲', 
+                      clear:'晴',
+                      sunny:'晴',
+                      hot:'炎熱',
+                      "partly cloudy":'晴時多雲',
+                      "am showers":'短暫雨',
+                      "pm showers":'午後短暫雨',
+                      thundershowers:'雷陣雨',
+                      'pm thunderstorms':'午後雷雨',
+                      rain:'陰有雨'
+                      };
+      // 星期名稱
+      var weekDay =  {sun:'星期天',
+                      mon:'星期一',
+                      tue:'星期二',
+                      wed:'星期三',
+                      thu:'星期四',
+                      fri:'星期五', 
+                      sat:'星期六'
+                      };                
+      
+      // 自訂函式: 會下載天氣資訊並顯示在網頁中
+      function updateWeather(code){
+          // 由 $('#city').val() 取得目前所選城市的代碼, 並置入查詢的 URL 參數中 
+          $.get('https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%3D'+$('#city').val()+'%20AND%20u%3D%22c%22',
+              function(xml){
+                // 找出天氣資料的 item 元素
+                $(xml).find('forecast').each(function(index){
+                    // 清空div內容, 並取得元素物件
+                    var div=$('.report:eq('+index+')').empty();
+                    
+                    <!-- // 建立'星期幾'的標題並加入div中 -->
+                    <!-- $('<h3></h3>').text(weekDay[$(this).attr('day').toLowerCase()]).appendTo(div); -->
+                    
+                    // 建立氣象圖示並加入div中
+                    var filename = $(this).attr('code');
+                    $('<img>').attr('src',
+                                    'http://l.yimg.com/a/i/us/we/52/'+ filename +'.gif').appendTo(div);
+                    
+                    // 設定天氣預報文字: 有對應翻譯時, 加入中文; 否則加入原文
+                    if(weaText[$(this).attr('text').toLowerCase()])
+                      $('<h4></h4>').text(weaText[$(this).attr('text').toLowerCase()]).appendTo(div);
+                    else
+                      $('<h4></h4>').text( $(this).attr('text')).appendTo(div);
+                    
+                    // 加入高低溫資料
+                    $('<h4></h4>').text( $(this).attr('high')+'°C').addClass('highTemp').appendTo(div);
+                    $('<h4></h4>').text( $(this).attr('low')+'°C').addClass('lowTemp').appendTo(div);
+                });
+                
+                // 將英文的預報資料也加入網頁中
+                $('#eng').innerHtml=$(xml).find('description').text();
+              }
+          );
+      }
+      
+      // 文件 ready 後就進行下列工作
+      $(function(){        
+          // 1. 註冊 select 輸入欄位的 change 事件處理函式
+          $('#city').change(function(){
+            updateWeather();
+          });
+          
+          // 2. 觸發change事件, 立即更新天氣資訊
+          $('#city').change();
+      }); 
+   </script>
+   <style>
+      @import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+      body{
+      font-family: cwTeXYen, sans-serif;
+      font-size:20px;
+      }
+      .city{
+      font-size:18px;
+      }
+      .highTemp {color:red}   /* 高溫顯示紅色 */
+      .lowTemp  {color:blue}  /* 低溫顯示藍色 */
+   </style>
+   <!-- NAVBAR
+      ================================================== -->
+   <body>
+      <div class="navbar-wrapper">
+         <div class="container">
+            <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+               <div class="container">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="/g3site/index/">親子趴趴走</a>
+                  </div>
+                  <div class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+                        <li><a href="/g3site/index/">首頁</a></li>
+                        <li class="/g3site/active"><a href="classification/">簡介</a></li>
+                        <li><a href="/g3site/classification/">依類別分類</a></li>
+                        <li><a href="/g3site/gul/">猜你喜歡</a></li>
+                        <li><a href="/g3site/guasb/">熱門關鍵字</a></li>
+                        <!-- <li class="dropdown"> -->
+                        <!-- <a href="#" class="dropdown-toggle" data-toggle="dropdown">天氣查詢 <b class="caret"></b></a> -->
+                        <!-- <ul class="dropdown-menu" id="city"> -->
+                        <!-- <li><a class="city" value="2306179">台北市</a></li> -->
+                        <!-- <li><a class="city" value="20070569">新北市</a></li> -->
+                        <!-- <li><a class="city" value="2298866">桃園</a></li> -->
+                        <!-- <li><a class="city" value="2306185">新竹</a></li> -->
+                        <!-- <li><a class="city" value="2306185">新竹市</a></li> -->
+                        <!-- <li><a class="city" value="2301128">苗栗</a></li> -->
+                        <!-- <li><a class="city" value="2306181">台中市</a></li> -->
+                        <!-- <li><a class="city" value="2306183">彰化</a></li> -->
+                        <!-- <li><a class="city" value="2306204">南投</a></li> -->
+                        <!-- <li><a class="city" value="2296315">嘉義</a></li> -->
+                        <!-- <li><a class="city" value="2296315">嘉義市</a></li> -->
+                        <!-- <li><a class="city" value="2306182">台南市</a></li> -->
+                        <!-- <li><a class="city" value="2306180">高雄市</a></li> -->
+                        <!-- <li><a class="city" value="2306189">屏東</a></li> -->
+                        <!-- <li><a class="city" value="2306188">基隆市</a></li> -->
+                        <!-- <li><a class="city" value="2306198">宜蘭</a></li> -->
+                        <!-- <li><a class="city" value="2306187">花蓮</a></li> -->
+                        <!-- <li><a class="city" value="2306190">台東</a></li> -->
+                        <!-- <li><a class="city" value="2347346">雲林</a></li> -->
+                        <!-- <li><a class="city" value="22695856">澎湖</a></li> -->
+                        <!-- <li><a class="city" value="28760735">金門</a></li> -->
+                        <!-- <li><a class="city" value="12470575">馬祖</a></li> -->
+                        <!-- </ul> -->
+                        <!-- </li> -->
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="pageTitle">
+         <div class="container">
+            <div class="row">
+               <h2>簡介</h2>
+            </div>
+         </div>
+      </div>
+      <div class="container">
+         <div class="bodyInner">
+            <!-- <div class="container"> -->
+            <div class="container marketing">
+               <div class="col-lg-6">
+                  <div class = "no-scroll-layer">
+                     <iframe
+                        src = "https://www.google.com/maps/embed/v1/place?q={{about.name}}&key=AIzaSyBqEQ4tDHjKjwyLrnOdVHpOfHiagi8CLgk" center = "{{about.lat}},{{about.longt}}" width="550" height="400" frameborder = "0" style = "border:0" allowfullscreen></iframe>
+                     <!-- <img src="https://maps.googleapis.com/maps/api/staticmap? -->
+                     <!-- center=台北+101 -->
+                     <!-- &zoom=12 -->
+                     <!-- &size=400x400"> -->
+                  </div>
+                  <!-- <div class="content_bottom"> -->
+                  <!-- <img -->
+                  <!-- src="https://unsplash.it/120/60?image=961" -->
+                  <!-- data-darkbox="https://unsplash.it/1200/800?image=961" -->
+                  <!-- data-darkbox-description="<b>Sven Scheuermeier</b><br>Lorem ipsum dolor sit amet"> -->
+                  <!-- <img -->
+                  <!-- src="https://unsplash.it/120/60?image=950" -->
+                  <!-- data-darkbox="https://unsplash.it/1200/800?image=950" -->
+                  <!-- data-darkbox-description="<b>Tiago Muraro</b><br>Lorem ipsum dolor sit amet"> -->
+                  <!-- <img -->
+                  <!-- src="https://unsplash.it/120/60?image=946" -->
+                  <!-- data-darkbox="https://unsplash.it/1200/800?image=946" -->
+                  <!-- data-darkbox-description="<b>Padurariu Alexandru</b><br>Lorem ipsum dolor sit amet"> -->
+                  <!-- </div> -->
+                  <!-- <script src="{{STATIC_URL}}g3site/js/darkbox.js"></script> -->
+               </div>
+               <!-- <div class="col-lg-5"> -->
+               <!-- <p class="rest_name">{{about.name}}</p> -->
+               <!-- <p class="rest_score">評分 : {{about.overall_star_rating}}</p> -->
+               <!-- <p class="rest_type">類別 : {{about.category}}</p> -->
+               <!-- <p class="rest_add">地址 : {{about.address}}</p> -->
+               <!-- <p class="rest_phone">電話 : {{about.phone}}</p> -->
+               <!-- <p class="rest_hours">營業時間 : {{about.ontime}}</p> -->
+               <!-- <p class="rest_hours">{{about.ontime.1}}</p> -->
+               <!-- <p class="rest_about">關於 : {{about.about}}</p> -->
+               <!-- <p class="rest_about">推薦 : {{about.recommends.1}}</p> -->
+               <!-- </div> -->
+               <div class="col-lg-5">
+                  <p class="rest_name">{{about.name}}</p>
+                  <p class="rest_score">評分 : {{about.rating}}</p>
+                  <p class="rest_type">類別 : {{about.category_ming}}</p>
+                  <p class="rest_add">地址 : {{about.address}}</p>
+                  <p class="rest_phone">電話 : {{about.phone}}</p>
+                  <p class="rest_hours">營業時間 : {{about.ontime}}</p>
+                  <!-- <p class="rest_hours">{{about.ontime.1}}</p> -->
+                  <p class="rest_about">關於 : {{about.about}}</p>
+                  <p class="rest_about">推薦 : {{about.recommends.1}}</p>
+				  <p class="rest_about">推薦 : {{about.recommends_name.1}}</p>
+				  
+				  
+				 
+               </div>
+               <div class="col-lg-1">
+                  <select id="city">
+                     <option selected>{{about.area}}</option>
+                     <option value="2306179">台北市</option>
+                     <option value="20070569">新北市</option>
+                     <option value="2298866">桃園</option>
+                     <option value="2306185">新竹</option>
+                     <option value="2306185">新竹市</option>
+                     <option value="2301128">苗栗</option>
+                     <option value="2306181">台中市</option>
+                     <option value="2306183">彰化</option>
+                     <option value="2306204">南投</option>
+                     <option value="2296315">嘉義</option>
+                     <option value="2296315">嘉義市</option>
+                     <option value="2306182">台南市</option>
+                     <option value="2306180">高雄市</option>
+                     <option value="2306189">屏東</option>
+                     <option value="2306188">基隆市</option>
+                     <option value="2306198">宜蘭</option>
+                     <option value="2306187">花蓮</option>
+                     <option value="2306190">台東</option>
+                     <option value="2347346">雲林</option>
+                     <option value="22695856">澎湖</option>
+                     <option value="28760735">金門</option>
+                     <option value="12470575">馬祖</option>
+                  </select>
+                  <p></p>
+                  <div class="report"></div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="introSection">
+         <div class="container">
+            <div class="row">
+               <div class="col-lg-12">
+				  <p class="rest_about">熱搜關鍵字 : {{about.words.1}}
+				  {{about.words.2}}
+				  {{about.words.3}}
+				  {{about.words.4}}
+				  {{about.words.5}}
+				  {{about.words.6}}
+				  {{about.words.7}}
+				  {{about.words.8}}
+				  {{about.words.9}}
+				  {{about.words.10}}
+				  {{about.words.11}}
+				  {{about.words.12}}
+				  {{about.words.13}}
+				  {{about.words.14}}
+				  {{about.words.15}}
+				  {{about.words.16}}
+				  {{about.words.17}}
+				  {{about.words.18}}
+				  {{about.words.19}}
+				  {{about.words.20}}
+				  {{about.words.21}}
+				  {{about.words.22}}
+				  {{about.words.24}}
+				  {{about.words.25}}
+				  {{about.words.26}}
+				  {{about.words.27}}
+				  {{about.words.28}}
+				  {{about.words.29}}
+				  {{about.words.30}}
+				  {{about.words.31}}
+				  {{about.words.32}}
+				  {{about.words.33}}
+				  {{about.words.34}}
+				  {{about.words.35}}
+				  {{about.words.36}}
+				  {{about.words.37}}
+				  {{about.words.38}}
+				  {{about.words.39}}
+				  {{about.words.40}}</p>
+		    <p class="rest_about">推薦 No.1 : {{about.recommends.1}}</p>
+			<p class="rest_about">推薦 No.1 : {{about.recommends_name.1}}</p>
+               </div>
+            </div>
+            <!-- <script type="text/javascript"> -->
+            <!-- $('#textflow').textFlow({ -->
+            <!-- width: '99%', -->
+            <!-- height: '100px', -->
+            <!-- top: 0, -->
+            <!-- left: 0, -->
+            <!-- maxTexts: 15, -->
+            <!-- marginTop: 25, -->
+            <!-- marginBottom: 0, -->
+            <!-- texts: ['球池', '扮家家酒區', '溜滑梯', '盪鞦韆', '覺明子沙坑', '旋轉木馬'], -->
+            <!-- color: '#53777A', -->
+            <!-- background: '#F7F1EC', -->
+            <!-- font: 'cwTeXYen,  sans-serif' -->
+            <!-- }); -->
+            <!-- </script> -->
+         </div>
+      </div>
+      <!-- 以下是相片捲軸 -->
+      <div class="container marketing">
+         <div class="carousel" style="width:1250px">
+            <div class="roll" style="left: -1860px;">
+               <div class="slides">
+                  <a href="https://unsplash.it/640/426/?random"><img src="https://unsplash.it/640/426/?random" alt="slides img 1"></a>
+                  <p>推薦 : {{about.recommends_name.1}}#</p>
+				  <p><a class="btn btn-default" href="#" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.1}} &raquo;</a></p>
+               </div>
+               <div class="slides">
+                  <a href="https://unsplash.it/640/426/?random"><img src="https://unsplash.it/640/426/?random" alt="slides img 1"></a>
+                  <p>推薦 : {{about.recommends_name.1}}#</p>
+				  <p><a class="btn btn-default" href="#" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.1}} &raquo;</a></p>
+               </div>
+               <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.1}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.1}}/1.jpg" alt="slides img 1"></a>
+                  <p>推薦 : {{about.recommends_name.1}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.1}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.1}} &raquo;</a></p>
+               </div>
+               <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.2}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.2}}/1.jpg" alt="slides img 2"></a>
+                  <p>推薦 : {{about.recommends_name.2}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.2}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.2}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.3}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.3}}/1.jpg" alt="slides img 3"></a>
+                  <p>推薦 : {{about.recommends_name.3}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.3}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.3}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.4}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.4}}/1.jpg" alt="slides img 4"></a>
+                  <p>推薦 : {{about.recommends_name.4}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.4}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.4}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.5}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.5}}/1.jpg" alt="slides img 5"></a>
+                  <p>推薦 : {{about.recommends_name.5}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.5}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.5}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.6}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.6}}/1.jpg" alt="slides img 6"></a>
+                  <p>推薦 : {{about.recommends_name.6}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.6}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.6}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.7}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.7}}/1.jpg" alt="slides img 7"></a>
+                  <p>推薦 : {{about.recommends_name.7}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.7}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.7}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.8}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.8}}/1.jpg" alt="slides img 8"></a>
+                  <p>推薦 : {{about.recommends_name.8}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.8}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.8}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.9}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.9}}/1.jpg" alt="slides img 9"></a>
+                  <p>推薦 : {{about.recommends_name.9}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.9}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.9}} &raquo;</a></p>
+               </div>
+			   <div class="slides">
+                  <a href="{{STATIC_URL}}g3site/images/small/{{about.recommends.10}}/1.jpg"><img src="{{STATIC_URL}}g3site/images/small/{{about.recommends.10}}/1.jpg" alt="slides img 10"></a>
+                  <p>推薦 : {{about.recommends_name.10}}</p>
+				  <p><a class="btn btn-default" href="{{about.recommends.10}}" role="button" id="rest" onclick="showInfo(this)">{{about.recommends_name.10}} &raquo;</a></p>
+               </div>
+               <div class="slides">
+                  <a href="https://unsplash.it/640/426/?random"><img src="https://unsplash.it/640/426/?random" alt="slides img 1"></a>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer lacinia in mi a rhoncus. Suspendisse maximus leo ac lorem interdum volutpat.</p>
+               </div>
+            </div>
+            <!-- 以下是左右按鈕 -->
+            <div class="sections"><i class="fa fa-circle-thin indicator" data-id="1" aria-hidden="true"></i><i class="fa fa-circle-thin indicator" data-id="2" aria-hidden="true"></i><i class="fa fa-circle-thin indicator" data-id="3" aria-hidden="true"></i><i class="fa fa-circle indicator" data-id="4" aria-hidden="true"></i><i class="fa fa-circle-thin indicator" data-id="5" aria-hidden="true"></i></div>
+            <!-- 以下是圓形按鈕 -->
+            <button class="navigation" id="nav-left"><i class="fa fa-angle-left" aria-hidden="true"></i></button>
+            <button class="navigation" id="nav-right"><i class="fa fa-angle-right" aria-hidden="true"></i></button>
+         </div>
+      </div>
+      <!-- Load scripts -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+      <script src="{{STATIC_URL}}g3site/js/rl-carousel.js" type="text/javascript" charset="utf-8" async defer></script>
+      <!-- 以上是相片捲軸 -->
+      </div>
+      <!-- <div class="highlightSection"> -->
+         <!-- <div class="container"> -->
+            <!-- <div class="row"> -->
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <div class="media"> -->
+                     <!-- <a href="menu/"><img src="http://dev.bombaytakeawayclub.com/assets/img/nepali-momo.png" alt="nepali-momo"> </a> -->
+                     <!-- <h3 class="media-heading text-primary-theme">NEPALESE LAMB MOMO</h3> -->
+                     <!-- <p>Steamed dumplings filled with slightly spiced minced meat served with special sauce.</p> -->
+                  <!-- </div> -->
+               <!-- </div> -->
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <div class="media"> -->
+                     <!-- <a href="menu/"><img src="http://dev.bombaytakeawayclub.com/assets/img/gorkha-special-chicken.png" alt="GURKHA SPECIAL CHICKEN"> </a>						 -->
+                     <!-- <h3 class="media-heading text-danger-theme">GURKHA SPECIAL CHICKEN</h3> -->
+                     <!-- <p>Boneless chicken marinated in mustard, smoked chilli, herbs and spices slowly cooked in tandoor. </p> -->
+                  <!-- </div> -->
+               <!-- </div> -->
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <div class="media"> -->
+                     <!-- <a href="menu/"><img src="http://dev.bombaytakeawayclub.com/assets/img/lam-tikka.png" alt="Lam Tikka"> </a> -->
+                     <!-- <h3 class="media-heading">LAMB TIKKA SPECIAL</h3> -->
+                     <!-- <p>Tender pieces of lamb mixed with our own spices and gently cooked in clay oven. </p> -->
+                  <!-- </div> -->
+               <!-- </div> -->
+            <!-- </div> -->
+         <!-- </div> -->
+      <!-- </div> -->
+      <!-- FOOTER -->
+      <footer>
+         <div class="container">
+            <p class="pull-right"><a href="#">回到首頁</a></p>
+            <p>&copy; 2017 AB104 GROUP3 親子相關景點推薦.</p>
+         </div>
+      </footer>
+      <!-- Bootstrap core JavaScript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="{{STATIC_URL}}g3site/js/bootstrap.min.js"></script>
+      <script src="{{STATIC_URL}}g3site/js/holder.js"></script>
+   </body>
+</html>

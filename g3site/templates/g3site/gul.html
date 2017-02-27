@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+   <head>
+      <!-- 如果沒有網路 -->
+	  <!-- <script src="js/jquery-1.12.3.min.js"></script> -->
+	  <!-- <link href="./css/jquerysctipttop.css" rel="stylesheet"> -->
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="shortcut icon" href="themes/assets/ico/favicon.ico">
+      <!-- 複選按鈕 -->
+      <link href="http://www.jqueryscript.net/css/jquerysctipttop.css" rel="stylesheet" type="text/css">
+      <link href="{{STATIC_URL}}g3site/css/jquery-nicelabel.css" rel="stylesheet" type="text/css" />
+	  <script src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+      <!-- 複選按鈕 -->
+      <title>AB104 GROUP3 親子景點推薦</title>
+      <!-- Bootstrap core CSS -->
+      <link href="{{STATIC_URL}}g3site/css/bootstrap.min.css" rel="stylesheet">
+      <link href="{{STATIC_URL}}g3site/css/carousel.css" rel="stylesheet">
+
+   </head>
+
+   <style>
+		@import url(http://fonts.googleapis.com/earlyaccess/cwtexyen.css);
+		body{
+		font-family: cwTeXYen, sans-serif;
+		font-size:20px;
+		}
+		.text_checkbox{float:left;margin:15px;}
+		
+	</style>
+   <!-- NAVBAR
+      ================================================== -->
+   <body>
+      <div class="navbar-wrapper">
+         <div class="container">
+            <div class="navbar navbar-inverse navbar-static-top" role="navigation">
+               <div class="container">
+                  <div class="navbar-header">
+                     <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                     <span class="sr-only">Toggle navigation</span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     <span class="icon-bar"></span>
+                     </button>
+                     <a class="navbar-brand" href="../index/">親子趴趴走</a>
+                  </div>
+                  <div class="navbar-collapse collapse">
+                     <ul class="nav navbar-nav">
+                        <li><a href="../index/">首頁</a></li>
+                        <!-- <li><a href="../classification/">簡介</a></li> -->
+                        <li><a href="../classification/">依類別分類</a></li>
+                        <li class="active"><a href="../gul/">猜你喜歡</a></li>
+                        <li><a href="../guasb/">熱門關鍵字</a></li>
+                     </ul>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+      <div class="pageTitle">
+         <div class="container">
+            <h2>猜你喜歡</h2>
+         </div>
+      </div>
+      <div class="container">
+         <div class="bodyInner">
+            <!-- start slipsum code -->
+			<!-- <form action="getlist" method="get" > -->
+			<form action="/g3site/result">
+			<!-- {% csrf_token %} -->
+            
+			<input type="checkbox" name="fname" value="1" id="myCheckbox1" style="display:none;">
+			<label for="myCheckbox1" data-toggle="tooltip" title="停車場">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E5%81%9C%E8%BB%8A%E5%A0%B4.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			
+			<input type="checkbox" name="fname" value="2" id="myCheckbox2" style="display:none;">
+			<label for="myCheckbox2" data-toggle="tooltip" title="動物園">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E5%8B%95%E7%89%A9%E5%9C%92.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			
+			<input type="checkbox" name="fname" value="3" id="myCheckbox3" style="display:none;">
+			<label for="myCheckbox3" data-toggle="tooltip" title="博物館">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E5%8D%9A%E7%89%A9%E9%A4%A8.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			<input type="checkbox" name="fname" value="4" id="myCheckbox4" style="display:none;">
+			<label for="myCheckbox4" data-toggle="tooltip" title="哺乳室">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E5%93%BA%E4%B9%B3%E5%AE%A4.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			
+			<input type="checkbox" name="fname" value="5" id="myCheckbox5" style="display:none;">
+			<label for="myCheckbox5" data-toggle="tooltip" title="水池區">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E6%88%B2%E6%B0%B4%E6%B1%A0.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			<input type="checkbox" name="fname" value="6" id="myCheckbox6" style="display:none;">
+			<label for="myCheckbox6" data-toggle="tooltip" title="手作教室">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E6%89%8B%E4%BD%9C%E6%95%99%E5%AE%A4.JPG" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="7" id="myCheckbox7" style="display:none;">
+			<label for="myCheckbox7" data-toggle="tooltip" title="海邊">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E6%B5%B7%E9%82%8A.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="8" id="myCheckbox8" style="display:none;">
+			<label for="myCheckbox8" data-toggle="tooltip" title="溜滑梯">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E6%BA%9C%E6%BB%91%E6%A2%AF.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="9" id="myCheckbox9" style="display:none;">
+			<label for="myCheckbox9" data-toggle="tooltip" title="益智玩具">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E7%8E%A9%E5%85%B7%E5%8D%80.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="10" id="myCheckbox10" style="display:none;">
+			<label for="myCheckbox10" data-toggle="tooltip" title="沙池">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E7%8E%A9%E6%B2%99%E5%8D%80.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="11" id="myCheckbox11" style="display:none;">
+			<label for="myCheckbox11" data-toggle="tooltip" title="球池">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E7%90%83%E6%B1%A0.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="12" id="myCheckbox12" style="display:none;">
+			<label for="myCheckbox12" data-toggle="tooltip" title="登山步道">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E7%99%BB%E5%B1%B1%E6%AD%A5%E9%81%93.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="13" id="myCheckbox13" style="display:none;">
+			<label for="myCheckbox13" data-toggle="tooltip" title="塗鴉區">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E7%B9%AA%E6%9C%AC.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="14" id="myCheckbox14" style="display:none;">
+			<label for="myCheckbox14" data-toggle="tooltip" title="腳踏車">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E8%87%AA%E8%A1%8C%E8%BB%8A%E9%81%93.JPG" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="15" id="myCheckbox15" style="display:none;">
+			<label for="myCheckbox15" data-toggle="tooltip" title="大片草地">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E8%8D%89%E7%9A%AE.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			<input type="checkbox" name="fname" value="16" id="myCheckbox16" style="display:none;">
+			<label for="myCheckbox16" data-toggle="tooltip" title="觀光工廠">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E8%A7%80%E5%85%89%E5%B7%A5%E5%BB%A0.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="17" id="myCheckbox17" style="display:none;">
+			<label for="myCheckbox17" data-toggle="tooltip" title="休閒農場">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E8%BE%B2%E5%A0%B4.jpg" width="210" height="151" class="selectable" >
+			</label>
+			
+			<input type="checkbox" name="fname" value="18" id="myCheckbox18" style="display:none;">
+			<label for="myCheckbox18" data-toggle="tooltip" title="遊樂設施">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E9%81%8A%E6%A8%82%E8%A8%AD%E6%96%BD.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			<input type="checkbox" name="fname" value="19" id="myCheckbox19" style="display:none;">
+			<label for="myCheckbox19" data-toggle="tooltip" title="下午茶">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E9%9C%B2%E7%87%9F%E5%8D%80.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			<input type="checkbox" name="fname" value="20" id="myCheckbox20" style="display:none;">
+			<label for="myCheckbox20" data-toggle="tooltip" title="盪鞦韆">
+            <img src="https://s3-ap-northeast-1.amazonaws.com/ab104group3/likes/%E9%9E%A6%E9%9F%86.jpg" width="210" height="151" class="selectable">
+			</label>
+			
+			<div class="carousel-caption">
+			   <input class="btn btn-lg btn-default" type="submit" value="至少五張,點我送出" style="font-size:2em">
+               <!-- <a class="btn btn-lg btn-default" type="submit" name="submit"  role="button" style="font-size:2em">至少五張,點我送出 &raquo;</a> -->
+            </div>
+			
+			</form>
+			
+            <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+            <script src="{{STATIC_URL}}g3site/js/jquery.imgcheckbox.js"></script>
+            <script>
+               $("img.selectable").imgCheckbox();
+            </script>  
+			<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip();   
+});
+</script>
+            <!-- end slipsum code --> 
+         </div>
+      </div>
+      <div class="highlightSection">
+         <div class="container">
+            <div class="row">
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <div class="media"> -->
+                     <!-- <a href="menu/"><img src="http://dev.bombaytakeawayclub.com/assets/img/nepali-momo.png" alt="nepali-momo"> </a> -->
+                     <!-- <h3 class="media-heading text-primary-theme">NEPALESE LAMB MOMO</h3> -->
+                     <!-- <p>Steamed dumplings filled with slightly spiced minced meat served with special sauce.</p> -->
+                  <!-- </div> -->
+               <!-- </div> -->
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <div class="media"> -->
+                     <!-- <a href="menu/"><img src="http://dev.bombaytakeawayclub.com/assets/img/gorkha-special-chicken.png" alt="GURKHA SPECIAL CHICKEN"> </a>						 -->
+                     <!-- <h3 class="media-heading text-danger-theme">GURKHA SPECIAL CHICKEN</h3> -->
+                     <!-- <p>Boneless chicken marinated in mustard, smoked chilli, herbs and spices slowly cooked in tandoor. </p> -->
+                  <!-- </div> -->
+               <!-- </div> -->
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <div class="media"> -->
+                     <!-- <a href="menu/"><img src="http://dev.bombaytakeawayclub.com/assets/img/lam-tikka.png" alt="Lam Tikka"> </a> -->
+                     <!-- <h3 class="media-heading">LAMB TIKKA SPECIAL</h3> -->
+                     <!-- <p>Tender pieces of lamb mixed with our own spices and gently cooked in clay oven. </p> -->
+                  <!-- </div> -->
+               <!-- </div> -->
+            </div>
+         </div>
+      </div>
+      <div class="introSection">
+         <div class="container">
+            <div class="row">
+               <!-- <div class="col-lg-5"> -->
+                  <!-- <h3>Welcome to restaurent</h3> -->
+                  <!-- <p> -->
+                     <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy  -->
+                     <!-- text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  -->
+                     <!-- It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. <br><br> -->
+                     <!-- It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages,  -->
+                     <!-- and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum. -->
+                  <!-- </p> -->
+               <!-- </div> -->
+               <!-- <div class="col-lg-4"> -->
+                  <!-- <h3>Welcome to restaurent</h3> -->
+                  <!-- <p> -->
+                     <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy  -->
+                     <!-- text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  -->
+                     <!-- It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. <br><br> -->
+                  <!-- </p> -->
+               <!-- </div> -->
+               <!-- <div class="col-lg-3"> -->
+                  <!-- <h3>Welcome to restaurent</h3> -->
+                  <!-- <p> -->
+                     <!-- Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy  -->
+                     <!-- text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.  -->
+                  <!-- </p> -->
+               <!-- </div> -->
+            </div>
+         </div>
+      </div>
+      <!-- FOOTER -->
+      <footer>
+         <div class="container">
+            <p class="pull-right"><a href="#">回到首頁</a></p>
+            <p>&copy; 2017 AB104 GROUP3 親子相關景點推薦.</p>
+         </div>
+      </footer>
+      <!-- Bootstrap core JavaScript
+         ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+      <script src="{{STATIC_URL}}g3site/js/bootstrap.min.js"></script>
+      <script src="{{STATIC_URL}}g3site/js/holder.js"></script>
+   </body>
+   <script src="{{STATIC_URL}}g3site/js/jquery.nicelabel.js"></script>
+   <script>
+      $(function(){
+      	<!-- $('#rect-checkbox > input').nicelabel(); -->
+      	<!-- $('#rect-radio > input').nicelabel(); -->
+      	<!-- $('#circle-checkbox > input').nicelabel(); -->
+      	<!-- $('#circle-radio > input').nicelabel(); -->
+      	$('#text-checkbox > input').nicelabel();
+      	<!-- $('#text-radio > input').nicelabel(); -->
+      	$('#text-checkbox-ico > input:eq(0)').nicelabel({
+      		checked_ico: '{{STATIC_URL}}g3site/images/checked.png',
+      		unchecked_ico: '{{STATIC_URL}}g3site/images/unchecked.png'
+      	});
+      	$('#text-checkbox-ico > input:eq(1)').nicelabel({
+      		checked_ico: '{{STATIC_URL}}g3site/images/checked.png',
+      		unchecked_ico: '{{STATIC_URL}}g3site/images/unchecked.png'
+      	});
+      	$('#text-checkbox-ico > input:eq(2)').nicelabel({
+      		checked_ico: '{{STATIC_URL}}g3site/images/checked.png',
+      		unchecked_ico: '{{STATIC_URL}}g3site/images/unchecked.png'
+      	});
+      	$('#text-checkbox-ico > input:eq(3)').nicelabel({
+      		uselabel: false
+      	});
+      	
+      });
+   </script>
+</html>
